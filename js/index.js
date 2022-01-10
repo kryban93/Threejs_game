@@ -1,4 +1,5 @@
 import * as THREE from 'https://threejs.org/build/three.module.js';
+import { createSea } from './createSea.js';
 
 const colors = {
 	red: 0xf25346,
@@ -58,6 +59,10 @@ function init() {
 	scene.add(hemisphereLight);
 	scene.add(shadowLight);
 
+	const sea = createSea();
+	sea.position.y = -600;
+
+	scene.add(sea);
 	animate();
 }
 
