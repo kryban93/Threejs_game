@@ -1,0 +1,19 @@
+{
+  "name": "threejs_game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sass:watch": "sass -w styles/scss/index.scss  styles/css/index.css"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-sass": "^7.0.1",
+    "prettier": "^2.5.1",
+    "sass": "^1.47.0",
+    "yarn": "^1.22.17"
+  }
+}
