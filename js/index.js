@@ -1,5 +1,6 @@
 import * as THREE from 'https://threejs.org/build/three.module.js';
 import { createSea } from './createSea.js';
+import { createSky } from './createSky.js';
 
 const colors = {
 	red: 0xf25346,
@@ -61,8 +62,12 @@ function init() {
 
 	const sea = createSea();
 	sea.position.y = -600;
-
 	scene.add(sea);
+
+	const sky = createSky(15);
+	sky.position.y = -600;
+	scene.add(sky);
+
 	animate();
 }
 
