@@ -24,6 +24,6 @@ export function createCloud(numberOfBlocks) {
 
 		cloud.add(box);
 	}
-	console.log(cloud.children);
+
 	return cloud;
 }
