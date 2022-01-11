@@ -14,7 +14,7 @@ const colors = {
 window.addEventListener('DOMContentLoaded', init);
 const canvas = document.getElementById('world');
 
-let renderer, scene, camera;
+let renderer, scene, camera, sky, sea;
 
 const windowSizes = {
 	HEIGHT: window.innerHeight,
@@ -41,7 +41,7 @@ function init() {
 	canvas.appendChild(renderer.domElement);
 
 	scene = new THREE.Scene();
-	scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
+	scene.fog = new THREE.Fog(0xf7d9aa, 100, 1100);
 
 	camera = new THREE.PerspectiveCamera(
 		cameraOptions.fieldOfView,
@@ -60,11 +60,11 @@ function init() {
 	scene.add(hemisphereLight);
 	scene.add(shadowLight);
 
-	const sea = createSea();
+	sea = createSea();
 	sea.position.y = -600;
 	scene.add(sea);
 
-	const sky = createSky(15);
+	sky = createSky(15);
 	sky.position.y = -600;
 	scene.add(sky);
 
@@ -73,6 +73,14 @@ function init() {
 
 function animate() {
 	requestAnimationFrame(animate);
+
+	sky.rotation.z += 0.001;
+	sky.children.forEach((cloud) => {
+		cloud.children.forEach((box) => {
+			box.rotation.z += 0.005;
+		});
+	});
+	sea.rotation.z += 0.005;
 
 	renderer.render(scene, camera);
 }
