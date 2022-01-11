@@ -1,6 +1,7 @@
 import * as THREE from 'https://threejs.org/build/three.module.js';
 import { createSea } from './createSea.js';
 import { createSky } from './createSky.js';
+import { createAirplane } from './createAirplane.js';
 
 const colors = {
 	red: 0xf25346,
@@ -14,7 +15,7 @@ const colors = {
 window.addEventListener('DOMContentLoaded', init);
 const canvas = document.getElementById('world');
 
-let renderer, scene, camera;
+let renderer, scene, camera, sky, sea, airplane;
 
 const windowSizes = {
 	HEIGHT: window.innerHeight,
@@ -41,7 +42,7 @@ function init() {
 	canvas.appendChild(renderer.domElement);
 
 	scene = new THREE.Scene();
-	scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
+	scene.fog = new THREE.Fog(0xf7d9aa, 100, 1100);
 
 	camera = new THREE.PerspectiveCamera(
 		cameraOptions.fieldOfView,
@@ -60,19 +61,37 @@ function init() {
 	scene.add(hemisphereLight);
 	scene.add(shadowLight);
 
-	const sea = createSea();
+	sea = createSea();
 	sea.position.y = -600;
 	scene.add(sea);
 
-	const sky = createSky(15);
+	sky = createSky(15);
 	sky.position.y = -600;
 	scene.add(sky);
+
+	airplane = createAirplane();
+	airplane.position.y = 100;
+	airplane.scale.set(0.25, 0.25, 0.25);
+	scene.add(airplane);
 
 	animate();
 }
 
 function animate() {
 	requestAnimationFrame(animate);
+
+	sky.rotation.z += 0.001;
+	sky.children.forEach((cloud) => {
+		cloud.children.forEach((box) => {
+			box.rotation.z += 0.005;
+		});
+	});
+	sea.rotation.z += 0.005;
+	airplane.children.forEach((element) => {
+		if (element.name === 'propeller') {
+			element.rotation.x += 0.3;
+		}
+	});
 
 	renderer.render(scene, camera);
 }
