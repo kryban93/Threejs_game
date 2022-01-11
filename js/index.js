@@ -2,6 +2,7 @@ import * as THREE from 'https://threejs.org/build/three.module.js';
 import { createSea } from './createSea.js';
 import { createSky } from './createSky.js';
 import { createAirplane } from './createAirplane.js';
+import { normalize } from './normalize.js';
 
 const colors = {
 	red: 0xf25346,
@@ -32,6 +33,11 @@ const cameraOptions = {
 		y: 100,
 		z: 200,
 	},
+};
+
+let mousePosition = {
+	x: 0,
+	y: 0,
 };
 
 function init() {
@@ -75,6 +81,8 @@ function init() {
 	scene.add(airplane);
 
 	animate();
+
+	window.addEventListener('mousemove', handleMouseMove);
 }
 
 function animate() {
@@ -93,5 +101,24 @@ function animate() {
 		}
 	});
 
+	updatePlanePosition();
 	renderer.render(scene, camera);
+}
+
+function handleMouseMove(event) {
+	const normalizedX = -1 + (event.clientX / windowSizes.WIDTH) * 2;
+	const normalizedY = 1 - (event.clientY / windowSizes.HEIGHT) * 2;
+
+	mousePosition = {
+		x: normalizedX,
+		y: normalizedY,
+	};
+}
+
+function updatePlanePosition() {
+	const targetX = normalize(mousePosition.x, -1, 1, -100, 100);
+	const targetY = normalize(mousePosition.y, -1, 1, 25, 175);
+
+	console.log(targetX, targetY);
+	airplane.position.set(targetX, targetY, 0);
 }
