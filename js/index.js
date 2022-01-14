@@ -67,10 +67,12 @@ function init() {
 	camera.position.set(cameraOptions.position.x, cameraOptions.position.y, cameraOptions.position.z);
 
 	const hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, 0.9);
+	const ambientLight = new THREE.AmbientLight('#dbaf4f', 0.1);
 	const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9);
 	shadowLight.position.set(150, 350, 350);
 	shadowLight.castShadow = true;
 
+	scene.add(ambientLight);
 	scene.add(hemisphereLight);
 	scene.add(shadowLight);
 
@@ -90,6 +92,15 @@ function init() {
 	animate();
 
 	window.addEventListener('mousemove', handleMouseMove);
+	window.addEventListener('resize', handleWindowResize);
+}
+
+function handleWindowResize() {
+	windowSizes.HEIGHT = window.innerHeight;
+	windowSizes.WIDTH = window.innerWidth;
+	renderer.setSize(windowSizes.WIDTH, windowSizes.HEIGHT);
+	camera.aspectRatio = windowSizes.WIDTH / windowSizes.HEIGHT;
+	camera.updateProjectionMatrix();
 }
 
 function animate() {
