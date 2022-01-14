@@ -4,7 +4,7 @@ import { createPilot } from './createPilot.js';
 export function createAirplane() {
 	const airplane = new THREE.Object3D();
 	const cockpitGeometry = new THREE.BoxGeometry(60, 50, 50, 1, 1, 1);
-	const cockpitMaterial = new THREE.MeshPhongMaterial({ color: '#fc035e' });
+	const cockpitMaterial = new THREE.MeshPhongMaterial({ color: '#590939' });
 	const cockpit = new THREE.Mesh(cockpitGeometry, cockpitMaterial);
 	cockpit.castShadow = true;
 	cockpit.receiveShadow = true;
@@ -19,7 +19,7 @@ export function createAirplane() {
 	airplane.add(engine);
 
 	const tailGeometry = new THREE.BoxGeometry(15, 40, 5, 1, 1, 1);
-	const tailMaterial = new THREE.MeshPhongMaterial({ color: '#fc035e' });
+	const tailMaterial = new THREE.MeshPhongMaterial({ color: '#590939' });
 	const tail = new THREE.Mesh(tailGeometry, tailMaterial);
 	tail.castShadow = true;
 	tail.receiveShadow = true;
@@ -27,7 +27,7 @@ export function createAirplane() {
 	airplane.add(tail);
 
 	const wingsGeometry = new THREE.BoxGeometry(40, 8, 150, 1, 1, 1);
-	const wingsMaterial = new THREE.MeshPhongMaterial({ color: '#ffffff' });
+	const wingsMaterial = new THREE.MeshPhongMaterial({ color: '#9c1465' });
 	const wings = new THREE.Mesh(wingsGeometry, wingsMaterial);
 	wings.castShadow = true;
 	wings.receiveShadow = true;
