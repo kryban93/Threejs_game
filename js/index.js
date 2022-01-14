@@ -90,6 +90,15 @@ function init() {
 	animate();
 
 	window.addEventListener('mousemove', handleMouseMove);
+	window.addEventListener('resize', handleWindowResize);
+}
+
+function handleWindowResize() {
+	windowSizes.HEIGHT = window.innerHeight;
+	windowSizes.WIDTH = window.innerWidth;
+	renderer.setSize(windowSizes.WIDTH, windowSizes.HEIGHT);
+	camera.aspectRatio = windowSizes.WIDTH / windowSizes.HEIGHT;
+	camera.updateProjectionMatrix();
 }
 
 function animate() {

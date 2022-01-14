@@ -5,9 +5,9 @@ export function createSea() {
 	geometry.applyMatrix4(new THREE.Matrix4().makeRotationX(-Math.PI / 2));
 
 	const material = new THREE.MeshPhongMaterial({
-		color: 0x68c3c0,
+		color: '#587ddb',
 		transparent: true,
-		opacity: 0.6,
+		opacity: 0.7,
 	});
 
 	const sea = new THREE.Mesh(geometry, material);
