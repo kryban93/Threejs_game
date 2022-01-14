@@ -16,7 +16,14 @@ const colors = {
 window.addEventListener('DOMContentLoaded', init);
 const canvas = document.getElementById('world');
 
-let renderer, scene, camera, sky, sea, airplane;
+let renderer,
+	scene,
+	camera,
+	sky,
+	sea,
+	airplane,
+	pilot,
+	angleHairs = 0;
 
 const windowSizes = {
 	HEIGHT: window.innerHeight,
@@ -77,7 +84,7 @@ function init() {
 
 	airplane = createAirplane();
 	airplane.position.y = 100;
-	airplane.scale.set(0.25, 0.25, 0.25);
+	airplane.scale.set(0.3, 0.3, 0.3);
 	scene.add(airplane);
 
 	animate();
@@ -102,6 +109,7 @@ function animate() {
 	});
 
 	updatePlanePosition();
+	updateHairsPosition();
 	renderer.render(scene, camera);
 }
 
@@ -119,6 +127,30 @@ function updatePlanePosition() {
 	const targetX = normalize(mousePosition.x, -1, 1, -100, 100);
 	const targetY = normalize(mousePosition.y, -1, 1, 25, 175);
 
-	console.log(targetX, targetY);
 	airplane.position.set(targetX, targetY, 0);
+}
+
+function updateHairsPosition() {
+	let hairs;
+
+	airplane.children.forEach((object) => {
+		if (object.name === 'pilot') {
+			object.children.forEach((pilotElement) => {
+				if (pilotElement.name === 'hairs') {
+					pilotElement.children.forEach((hairsElement) => {
+						if (hairsElement.name === 'hairsTop') {
+							hairs = hairsElement;
+						}
+					});
+				}
+			});
+		}
+	});
+	const hairsTop = hairs.children;
+	const hairsTopLength = hairsTop.length;
+	for (let i = 0; i < hairsTopLength; i++) {
+		const hair = hairsTop[i];
+		hair.scale.y = 0.75 + Math.cos(angleHairs + i / 3) * 0.25;
+	}
+	angleHairs += 0.16;
 }

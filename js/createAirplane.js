@@ -1,4 +1,5 @@
 import * as THREE from 'https://threejs.org/build/three.module.js';
+import { createPilot } from './createPilot.js';
 
 export function createAirplane() {
 	const airplane = new THREE.Object3D();
@@ -48,7 +49,21 @@ export function createAirplane() {
 	blade.receiveShadow = true;
 	blade.position.set(8, 0, 0);
 	propeler.add(blade);
-
 	airplane.add(propeler);
+
+	const pilot = createPilot();
+	pilot.position.set(-10, 40, 0);
+	pilot.scale.set(1.5, 1.5, 1.5);
+	airplane.add(pilot);
+
+	const glassGeometry = new THREE.BoxGeometry(2, 20, 30);
+	const glassMaterial = new THREE.MeshPhongMaterial({ color: '#fff', opacity: 0.1 });
+	const glass = new THREE.Mesh(glassGeometry, glassMaterial);
+	glass.position.set(20, 30, 0);
+	airplane.add(glass);
+
+	airplane.castShadow = true;
+	airplane.receiveShadow = true;
+
 	return airplane;
 }
