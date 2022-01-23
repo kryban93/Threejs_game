@@ -3,6 +3,7 @@ import { createSea } from './createSea.js';
 import { createSky } from './createSky.js';
 import { createAirplane } from './createAirplane.js';
 import { normalize } from './normalize.js';
+import { createObstacle } from './createObstacles.js';
 
 const colors = {
 	red: 0xf25346,
@@ -23,7 +24,8 @@ let renderer,
 	sea,
 	airplane,
 	pilot,
-	angleHairs = 0;
+	angleHairs = 0,
+	obstacle;
 
 const windowSizes = {
 	HEIGHT: window.innerHeight,
@@ -88,6 +90,9 @@ function init() {
 	airplane.position.y = 100;
 	airplane.scale.set(0.3, 0.3, 0.3);
 	scene.add(airplane);
+
+	obstacle = createObstacle();
+	scene.add(obstacle);
 
 	animate();
 
