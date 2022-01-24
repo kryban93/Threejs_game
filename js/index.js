@@ -23,7 +23,8 @@ let renderer,
 	sea,
 	airplane,
 	pilot,
-	angleHairs = 0;
+	angleHairs = 0,
+	obstacle;
 
 const windowSizes = {
 	HEIGHT: window.innerHeight,
@@ -71,6 +72,16 @@ function init() {
 	const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9);
 	shadowLight.position.set(150, 350, 350);
 	shadowLight.castShadow = true;
+	shadowLight.shadow.camera.left = -400;
+  shadowLight.shadow.camera.right = 400;
+  shadowLight.shadow.camera.top = 400;
+  shadowLight.shadow.camera.bottom = -400;
+  shadowLight.shadow.camera.near = 1;
+  shadowLight.shadow.camera.far = 1000;
+  shadowLight.shadow.mapSize.width = 4096;
+  shadowLight.shadow.mapSize.height = 4096;
+
+	const shadowHelper = new THREE.CameraHelper(shadowLight.shadow.camera)
 
 	scene.add(ambientLight);
 	scene.add(hemisphereLight);
@@ -88,6 +99,8 @@ function init() {
 	airplane.position.y = 100;
 	airplane.scale.set(0.3, 0.3, 0.3);
 	scene.add(airplane);
+
+
 
 	animate();
 
@@ -118,6 +131,7 @@ function animate() {
 			element.rotation.x += 0.3;
 		}
 	});
+
 
 	updatePlanePosition();
 	updateHairsPosition();

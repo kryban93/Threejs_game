@@ -1,5 +1,6 @@
 import * as THREE from 'https://threejs.org/build/three.module.js';
 import { createCloud } from './createCloud.js';
+import { createObstacle } from './createObstacles.js';
 
 export function createSky(numberOfClouds) {
 	const sky = new THREE.Object3D();
@@ -19,6 +20,13 @@ export function createSky(numberOfClouds) {
 
 		sky.add(cloud);
 	}
+
+	const obstacle = createObstacle();
+	obstacle.position.y = Math.sin();
+	obstacle.position.x = Math.cos();
+
+	sky.add(obstacle);
+
 
 	return sky;
 }
