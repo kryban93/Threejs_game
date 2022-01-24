@@ -63,7 +63,7 @@ export function createAirplane() {
 	airplane.add(glass);
 
 	airplane.castShadow = true;
-	airplane.receiveShadow = true;
+	airplane.receiveShadow = false;
 
 	return airplane;
 }
